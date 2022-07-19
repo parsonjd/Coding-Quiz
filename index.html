@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Coding Quiz</title>
+</head>
+
+<body>
+  <header>
+    <div class="header">
+      <div>
+        <button class="button">View Highscores</button>
+      </div>
+      <div>
+        <p id="timer"> Time left: 75 </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div>
+      <!-- Homepage -->
+      <section id="homepage_disp">
+        <div>
+          <h1>
+            Welcome to Coding Quiz Challenge
+          </h1>
+          <p>
+            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+            answers
+            will penalize your time by ten seconds!
+          </p>
+          <button class="button">Start Quiz</button>
+        </div>
+      </section>
+
+      <!-- questions -->
+      <section id="question_disp">
+        <div>
+          <div>
+            <h2>Question</h2>
+            <ul>
+              <li><button class="button">Answer1</button></li>
+              <li><button class="button">Answer2</button></li>
+              <li><button class="button">Answer3</button></li>
+              <li><button class="button">Answer4</button></li>
+            </ul>
+
+      </section>
+
+      <!-- Final Score -->
+      <section id="final_score_disp">
+        <div>
+          <h2>All Done!</h2>
+          <p>Your final score is: </p>
+          <p>Enter initials
+            <input>
+            <button class="button">Submit</button>
+          </p>
+        </div>
+      </section>
+
+      <!-- High Scores -->
+      <section id=" highscore_disp">
+        <div>
+          <h2>High Scores</h2>
+          <div>
+            <p>Your record</p>
+          </div><br><br>
+          <div>
+            <button class="button">Go back</button>
+            <button class="button" id="reset">Clear Highscores</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/script/script.js"></script>
+</body>
+
+</html>
