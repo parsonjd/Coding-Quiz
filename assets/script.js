@@ -50,6 +50,7 @@ let checkAnswer = document.querySelector("#check_answer");
 //Set variables for selecting on final score page
 let FinalScorePage = document.querySelector("#final_score_page");
 let finalScore = document.querySelector("#final_score");
+let timesUp = document.querySelector("#times_up");
 let initials = document.querySelector("#initials");
 let submitScore = document.querySelector("#submit_score");
 
@@ -61,20 +62,92 @@ let highscore = document.querySelector("#highscore");
 let back = document.querySelector("#back");
 let reset = document.querySelector("#reset");
 
-let secondsLeft = 75;
+
+//Global variables for functions below
+let totalScore = 0;
+let secondsLeft = 60;
+let questionNo = 0;
+
 
 // Start countdown timer for quiz play
 function quizTimer() {
     let timerInterval = setInterval(function () {
         secondsLeft--;
         timer.innerText = `Time left: ${secondsLeft}`
-
+        // If time expires, timer displays 0, Time is up is displayed on final score page and gameOver is executed
         if (secondsLeft <= 0) {
             clearInterval(timerInterval);
-            timer.innerText = "Time is up!";
-
+            timer.innerText = 0;
+            timesUp.innerText = "Time is up!";
+            gameOver();
+            //Else all questions are answered and gameOver is executed
+        } else if (questionNo >= questions.length) {
+            clearInterval(timerInterval);
+            gameOver();
         }
     }, 1000);
 }
 
-quizTimer();
+//Starts the quiz
+function startQuiz() {
+    homepage.style.display = "none";
+    question.style.display = "block";
+    quizTimer();
+    showQuestion(questionNo);
+
+}
+//Show question and answer choices
+function showQuestion(n) {
+    newQuestion.innerText = questions[n].title;
+    answer1.innerText = questions[n].choices[0];
+    answer2.innerText = questions[n].choices[1];
+    answer3.innerText = questions[n].choices[2];
+    answer4.innerText = questions[n].choices[3];
+    questionNo = n;
+}
+
+//Verify user selected answer to the question object
+function verifyAnswer(event) {
+    event.preventDefault();
+    //Display correct or wrong
+    checkAnswer.style.display = "block";
+    //Will display correct or wrong for one second and then go away
+    setTimeout(function () {
+        checkAnswer.style.display = 'none';
+    }, 1000);
+
+    // If correct, display correct and add 5 to the user's score
+    if (questions[questionNo].answer == event.target.textContent) {
+        checkAnswer.innerText = "Correct!";
+        totalScore = totalScore + 5;
+
+        // Remove 15 seconds from the timer and display wrong
+    } else {
+        secondsLeft = secondsLeft - 15;
+        checkAnswer.innerText = "Wrong!";
+    }
+    //If not all questions have been displayed, then display next question
+    if (questionNo < questions.length - 1) {
+        showQuestion(questionNo + 1);
+    } else {
+        gameOver();
+    }
+
+}
+//Displays final score page with user's final score and hides the timer
+function gameOver() {
+    question.style.display = "none";
+    FinalScorePage.style.display = "block";
+    // show final score
+    finalScore.innerText = `Your final score is: ${totalScore}`
+    // clearInterval(timerInterval);  
+    timer.style.display = "none";
+};
+
+//Click to start quiz
+start.addEventListener("click", startQuiz);
+
+//Click on any answer to the question, and execute verifyAnswer function
+anyAnswer.forEach(function (event) {
+    event.addEventListener("click", verifyAnswer);
+})

@@ -26,11 +26,28 @@ main {
   margin-top: 10rem;
 }
 
+/* Style the display when the questions pop up */
 .question_disp {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* Format the button questions when displayed */
+.quest_button {
+  background-color: darkblue;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  color: white;
+  width: 10rem;
+}
+
+/* Format button question when hovered over */
+.quest_button:hover {
+  background-color: rgba(128, 0, 128, 0.6);
 }
 
 ul {
@@ -47,12 +64,14 @@ li {
 }
 
 /* Hide all sections other than the Header and the Homepage */
-.homepage_disp,
+
 .question_disp,
-.final_score_disp {
+.final_score_disp,
+.highscore_disp {
   display: none;
 }
 
+/* All buttons are styled the same */
 .button {
   background: purple;
   border-radius: 3px;
