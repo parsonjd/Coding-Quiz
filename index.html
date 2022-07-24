@@ -13,7 +13,7 @@
   <header>
     <div class="header">
       <div>
-        <button class="button">View Highscores</button>
+        <button class="button" id="viewHighScores">View Highscores</button>
       </div>
       <div>
         <p id="timer"> Time left: 60 </p>
@@ -50,7 +50,7 @@
               <li><button class="quest_button any_answer" id="answer4">Answer4</button></li>
             </ul>
           </div>
-
+          <!-- Used to display Correct! or Wrong! -->
           <div id="check_answer">
 
           </div>
@@ -75,8 +75,8 @@
         <div>
           <h2>High Scores</h2>
           <!-- Append highscores -->
-          <div id="highscore_List">
-
+          <div>
+            <ol id="highscoreList"></ol>
           </div><br><br>
           <div>
             <button class="button" id="back">Go back</button>

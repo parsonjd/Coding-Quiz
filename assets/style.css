@@ -55,12 +55,17 @@ ul {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: baseline;
+  align-items: flex-start;
   padding-left: 50px;
 }
 
 li {
   margin-bottom: 8px;
+}
+
+/* Font size of correct or wrong after guessing answer*/
+#check_answer {
+  font-size: 3rem;
 }
 
 /* Hide all sections other than the Header and the Homepage */
@@ -71,10 +76,18 @@ li {
   display: none;
 }
 
+/* Style the high scores after they are rendered to the high score page */
+#highscoreList {
+  margin: 0 auto;
+  background-color: rgb(128, 0, 128, 0.4);
+  text-align: left;
+  width: 45%;
+}
+
 /* All buttons are styled the same */
 .button {
   background: purple;
-  border-radius: 3px;
+  border-radius: 8px;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -85,15 +98,18 @@ li {
   background-color: rgba(128, 0, 128, 0.6);
 }
 
-
-@media only screen and (max-width: 520px) {
+/* Set to accomodate each of the page displays at different resolutions */
+@media only screen and (max-width: 650px) {
   body {
-    font-size: 120%;
+    font-size: 100%;
   }
 
   main {
-    margin-left: 12px;
-    margin-right: 12px;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 
+  #highscoreList {
+    width: 60%;
+  }
 }

@@ -31,6 +31,7 @@ let questions = [
 
 //Set variables for selecting on header
 let timer = document.querySelector("#timer");
+let viewHighScores = document.querySelector("#viewHighScores");
 
 //Set variables for selecting on homepage
 let homepage = document.querySelector("#homepage");
@@ -97,13 +98,13 @@ function startQuiz() {
 
 }
 //Show question and answer choices
-function showQuestion(n) {
-    newQuestion.innerText = questions[n].title;
-    answer1.innerText = questions[n].choices[0];
-    answer2.innerText = questions[n].choices[1];
-    answer3.innerText = questions[n].choices[2];
-    answer4.innerText = questions[n].choices[3];
-    questionNo = n;
+function showQuestion(num) {
+    newQuestion.innerText = questions[num].title;
+    answer1.innerText = questions[num].choices[0];
+    answer2.innerText = questions[num].choices[1];
+    answer3.innerText = questions[num].choices[2];
+    answer4.innerText = questions[num].choices[3];
+    questionNo = num;
 }
 
 //Verify user selected answer to the question object
@@ -144,10 +145,105 @@ function gameOver() {
     timer.style.display = "none";
 };
 
+// Retrieve current high scores with user initials
+function getScores() {
+    let scoreList = localStorage.getItem("ScoreList");
+    if (scoreList !== null) {
+        let currentList = JSON.parse(scoreList);
+        return currentList;
+    } else {
+        currentList = [];
+    }
+    return currentList;
+
+};
+
+
+// Show scores on high scores page
+function showScore() {
+    highscoreList.innerHTML = "";
+    highscoreList.style.display = "block";
+    let highScores = rankScores();
+    // Slice the high scores array to only show the top five high scores. 
+    let topScores = highScores.slice(0, 5);
+    for (let i = 0; i < topScores.length; i++) {
+        let topScore = topScores[i];
+        // Show the high scores
+        let newLi = document.createElement("li");
+        newLi.innerText = `${topScore.user} - ${topScore.score}`;
+        highscoreList.appendChild(newLi);
+
+    }
+};
+
+// Retrieve the scores and rank each by the .score property on the object
+function rankScores() {
+    let scores = getScores();
+    if (getScores == null) {
+        return;
+    } else {
+        scores.sort(function (a, b) {
+            return b.score - a.score;
+        })
+        return scores;
+    }
+};
+
+//Save user initials and score in an object and then stores in local storage
+function saveScore() {
+    let newHighInfo = {
+        user: initials.value,
+        score: totalScore
+    }
+    let scoreInfo = getScores();
+    scoreInfo.push(newHighInfo);
+    localStorage.setItem("ScoreList", JSON.stringify(scoreInfo));
+
+}
+
 //Click to start quiz
 start.addEventListener("click", startQuiz);
 
 //Click on any answer to the question, and execute verifyAnswer function
 anyAnswer.forEach(function (event) {
     event.addEventListener("click", verifyAnswer);
-})
+});
+
+
+//Save user initials and score and then displays on high score page
+submitScore.addEventListener("click", function (event) {
+    event.preventDefault();
+    FinalScorePage.style.display = "none";
+    homepage.style.display = "none";
+    highscore.style.display = "block";
+    question.style.display = "none";
+    saveScore();
+    showScore();
+});
+
+// Shows the high scores on the high score page
+viewHighScores.addEventListener("click", function (event) {
+    event.preventDefault();
+    FinalScorePage.style.display = "none";
+    homepage.style.display = "none";
+    highscore.style.display = "block";
+    question.style.display = "none";
+    showScore();
+});
+
+//Displays homepage and refreshes the page
+back.addEventListener("click", function (event) {
+    event.preventDefault();
+    FinalScorePage.style.display = "none";
+    homepage.style.display = "block";
+    highscore.style.display = "none";
+    question.style.display = "none";
+    location.reload();
+});
+
+//Clear local storage and display empty high score page
+reset.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    showScore();
+});
