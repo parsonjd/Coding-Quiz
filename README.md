@@ -6,7 +6,7 @@ Upon completion, a score will be generated and will ask for the user's initials.
 
 The webpage is easy to use and is responsive to all screen sizes.
 
-
+Deployed URL: https://parsonjd.github.io/Coding-quiz/
 
 
 [![Coding-quiz.png](https://i.postimg.cc/rFMdQRF7/Coding-quiz.png)](https://postimg.cc/YjDqS9Fx)
